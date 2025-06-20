@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<!-- This declaration defines the document type and version of HTML being used (html )-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hari Chanadra- personal use</title>
+</head>
+<body>
+    <h1>day 2 program</h1>
+    <a href="https://www.facebook.com">click to open facebook</a> 
+       <br><a href="https://www.google.com">to open google</a><br>
+       <a href="https://www.youtube.com">youtube</a>
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DOM Calculator</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #000000;
+      --card: #f9f9f9;
+      --btn: #e0e0e0;
+    }
+
+    .dark {
+      --bg: #d87895;
+      --text: #ffffff;
+      --card: #1e1e1e;
+      --btn: blue;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 40px;
+      min-height: 100vh;
+      transition: all 0.3s ease;
+    }
+
+    .calculator {
+      background-color: var(--card);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      width: 320px;
+    }
+
+    .display {
+      background: var(--bg);
+      padding: 15px;
+      font-size: 24px;
+      text-align: right;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      min-height: 40px;
+      word-break: break-all;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      padding: 15px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: none;
+      background-color: var(--btn);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background-color: #999;
+      color: white;
+    }
+
+    #result {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    #history {
+      margin-top: 20px;
+      font-size: 14px;
+      max-height: 150px;
+      overflow-y: auto;
+      background-color: var(--bg);
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .toggle-btn {
+      margin-top: 10px;
+      background-color: rgb(161, 50, 205);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <h2>Calculator</h2>
+
+    <div id="display" class="display"></div>
+
+    <div class="buttons">
+      <button onclick="appendToDisplay('7')">7</button>
+      <button onclick="appendToDisplay('8')">8</button>
+      <button onclick="appendToDisplay('9')">9</button>
+      <button onclick="appendToDisplay('/')">/</button>
+
+      <button onclick="appendToDisplay('4')">4</button>
+      <button onclick="appendToDisplay('5')">5</button>
+      <button onclick="appendToDisplay('6')">6</button>
+      <button onclick="appendToDisplay('*')">*</button>
+
+      <button onclick="appendToDisplay('1')">1</button>
+      <button onclick="appendToDisplay('2')">2</button>
+      <button onclick="appendToDisplay('3')">3</button>
+      <button onclick="appendToDisplay('-')">-</button>
+
+      <button onclick="appendToDisplay('0')">0</button>
+      <button onclick="appendToDisplay('.')">.</button>
+      <button onclick="clearDisplay()">C</button>
+      <button onclick="appendToDisplay('+')">+</button>
+
+      <button onclick="calculate()" style="grid-column: span 4; background-color: #4caf50; color: white;">=</button>
+    </div>
+
+    <button class="toggle-btn" onclick="toggleDarkMode()">🌗 Toggle Dark Mode</button>
+
+    <div id="result"></div>
+
+    <div id="history">
+      <strong>History:</strong>
+      <ul id="historyList"></ul>
+    </div>
+  </div>
+
+  <script src="calci.js">
+   
+      
+  </script>
+
+</body>
+</html>

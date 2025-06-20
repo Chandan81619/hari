@@ -1,0 +1,67 @@
+body
+{ font-family: 'Franklin Gothic Medium',
+     'Arial Narrow', Arial, sans-serif; border: chartreuse;
+}
+#h1{
+     color: rgb(38, 0, 255);background-color: chartreuse;
+}
+
+
+        #h2{
+            color: rgb(70, 11, 235);
+        }
+     #p1{
+        border-width: 0svw;
+        color: rgb(76, 141, 10);
+        border: 5px;
+        border-radius: 5pc;
+        border-bottom: 3px;
+        border-width: 2pc;
+        border-style:double;
+        padding: 15px;
+        padding-left: 15px;
+     }   
+     #p7{
+          border: 2px;
+          border-width: thick;
+          border-bottom: antiquewhite;
+          border: chartreuse;
+         border-radius: 2pc;
+         border-width: thin;
+         border-left: initial;
+
+
+     }
+     #p8{
+          border-width: 0svw;
+        color: rgb(76, 141, 10);
+        border: 5px;
+        border-radius: 2pc;
+        border-bottom: 1pc;
+        border-width: 2pc;
+        border-style:double;
+        padding: 15px;
+        padding-left: 15px;
+     }
+
+     .odd{
+          border-width: 0svw;
+        color: rgb(76, 141, 10);
+        border: 5px;
+        border-radius: 5pc;
+        border-bottom: 3px;
+        border-width: 2pc;
+        border-style:double;
+        padding: 15px;
+        padding-left: 15px;
+        background-color: chartreuse;
+     }
+     .even{
+          background-color: rgb(125, 9, 233);
+          align-items: center;
+
+     }
+     body{
+          background-image: wll.jpg;
+     }
+

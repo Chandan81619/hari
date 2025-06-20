@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!-- This declaration defines the document type and version of HTML being used (html )-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <link  rel="stylesheet" href="formko.css">
+    <!-- link to your css file -->
+
+<style>
+    .{
+      background: var(--bg);
+      padding: 15px;
+      font-size: 24px;
+      text-align: right;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      min-height: 40px;
+      word-break: break-all;
+    }
+    .message-1 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    </style>
+</head>
+<body>
+
+
+
+
+  <script src="linkjava.js">
+    console.log("hello word!");
+    let myName="Hari Chandan";
+    console.log(myName);
+    let roll_no="13";
+    console.log(roll_no);
+    roll_no="15";
+    console.log(roll_no);
+
+    var rollNo="13";
+    console.log(rollNo);
+
+    const pi="3.14";
+    console.log(pi);
+     
+    const my_name="Chandan";
+    console.log(my_name);
+    
+
+ let firstno=50;
+ let secondno=49;
+ //-->+
+ let sumation=firstno+secondno;
+ //--->*
+ let pro=firstno*secondno;
+ //-->-
+ let sub=firstno-secondno;
+ //-->/
+ let div=firstno/secondno
+ console.log(sumation);
+ console.log(pro);
+ console.log(sub);
+ console.log(div);
+ let re=firstno % secondno;
+ console.log(re);
+
+ console.log(firstno==secondno);
+ let a=firstno;
+ let b=secondno;
+
+for (let i=0;i<=10;i=i+1){
+if (i%2==0){
+  console.log(i);
+  }
+}
+
+for (let i=0;i<=10;i=i+1){
+if (i%2!=0){
+  console.log(i);
+  }
+}
+
+let ab=prompt("enter a no");
+ if (ab%2==0){
+  alert("even")}
+ 
+  else {
+  console.log("odd");
+  
+ }
+
+
+
+ let direction=prompt("enter your direction");
+ if (direction=="right"){
+  console.log("go to right");
+ }
+ else if (direction=="left") {
+  console.log("go to left");
+  
+ } else if (direction=="stright") {
+  console.log("go to stright")
+  
+ } else {
+  console.log("Please valid correct direction")
+  
+ }
+
+console.log("loop")
+
+
+
+
+  </script>
+
+
+
+
+
+
+    <h1 align="center"><font color="sky blue">Online form for student.</font> </h1>
+   <img src="sclh.jpg" width="110" height="120" align="right">
+    <label for="name" >Enter your name: </label>
+    <input type="text" namlaceholder="ex:Hari Chandan"e="name" id="name" required p />
+  </div>
+    <br><br>
+    <form>
+        <label for="gender"><button>Gender</button></label><br>
+        <label for="gender">Male</label>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="gender">Female</label>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="gender">Other</label>
+        <input type="radio" id="other" name="gender" value="other">
+        <br><br>
+    </form>
+
+    <select name="class">
+    <option value="10">10</option>
+     <option value="11">11</option> 
+      <option value="12">12</option>
+    </select>
+
+    <form action="" method="get" class="form-example">
+  
+  <div class="form-example">
+    <label for="email" >Enter your email: </label><br>
+    <input type="email" placeholder="harichandra@gmail.com" name="email" id="email" required  autocomplete="on"/><br>
+<label for="Password" >Password:</label><br>
+    
+    
+  <input type="password" placeholder="*****************" id="password" name="user_password" required autocomplete="on">  
+</div><br>
+  <div class="form-example">
+    <input type="submit" value="Check" />
+  </div>
+  
+<br>
+  <label for="information">About yourself:</label><br>
+  <textarea id="message-1" 
+  name="user_message" rows="7" cols="80" 
+  placeholder="Type from here" required autocomplete="off"  >start from here....
+
+  </textarea><br>
+    <div align="right">
+   <textarea align="right" id="finger" name="user_message" rows="7" cols="6" align="right"
+  placeholder="press here" required autocomplete="off" >finger
+  </textarea>
+  <textarea align="right" id="finger" name="user_message" rows="7" cols="6" align="right"
+  placeholder="press here" required autocomplete="off" >finger
+  </textarea><br></div>
+
+  <br><h3>Fill your details</h3>
+   <label for="name" >Name: </label>
+    <input type="text" name="name" id="name" required placeholder="ex:Hari Chandan" />
+   <label for="name" >Age: </label>
+    <input type="text" name="age" id="age"  data-testid="age" required  /><br><br>
+    <label for="name" >Father Name: </label>
+    <input type="text" name="father name" id="father name" data-testid="father name" required  />
+   <br><br> <label for="name" >Mother Name: </label>
+    <input type="text" name="mother name"  id="name" data-testid="name" required  />
+   <br><br> <label for="name" >Parents</label>
+   <input type="text" name="Parents name" id="parents name" data-testid="parents" required  />
+   <br><br> <label for="reation" >Reation:</label>
+   <select name="Reation" id="s2">
+     <option value="Father">Father</option> 
+    <option value="mother">Mother</option>
+     <option value="uncle">uncle</option> 
+      <option value="Aunt">Aunt</option>
+       <option value="Grandpa">Grandpa</option>
+        <option value="grandmom">Grandmom</option>
+        
+    </select><br>
+    <br><br> <label for="contact" >Contact</label>
+   <input type="digit" name="contact no" id="contact no" required  />
+
+
+
+  <p>Send In</p>
+  <select name="message type" id="s3">
+     <option value="messenger"></option> 
+
+    <option value="facebook">Facebook</option>
+     <option value="messenger">Messenger</option> 
+      <option value="imo">IMO</option>
+       <option value="viber">viber</option>
+        <option value="telegram">Telegram</option>
+        <option value="Whatsapp">Whatsapp</option>
+        <option value="no one">non of above</option>
+    </select><br>
+
+
+  <input type="checkbox" id="agree" name="agree" value="yes" required autocomplete="on">
+
+<label for="agree">I am not a robot.</label><br>
+  <button type="submit" onclick="greet()">Send Information</button>
+</form>
+
+     
+       
+        
+</body>
+</html>

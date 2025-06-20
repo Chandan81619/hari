@@ -1,0 +1,29 @@
+body{
+    background-image:url(wll.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position:center;
+    background-size: cover;
+}
+#p1{
+   background: linear-gradient(to right,skyblue,white);
+   background-repeat: initial;
+   background-attachment: fixed;
+
+}
+.odd{
+          border-width: 0svw;
+        color: rgb(76, 141, 10);
+        border: 5px;
+        border-radius: 5pc;
+        border-bottom: 3px;
+        border-width: 2pc;
+        border-style:double;
+        padding: 15px;
+        padding-left: 15px;
+        background-color: chartreuse;
+     }
+     .even{
+          background-color: rgb(125, 9, 233);
+          align-items: center;
+     }

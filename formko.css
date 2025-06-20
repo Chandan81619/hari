@@ -1,0 +1,23 @@
+body{
+    background-image:url(kalika.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position:center;
+    background-size: auto;
+    opacity:89%;
+}
+    input{
+    border-radius: 5px;
+     }
+textarea{
+    border-radius: 1pc;
+
+}
+#s2{
+    border-radius: 2pc;
+    border-bottom:5cm;
+}
+   #select3{
+    border-radius: 3pc;
+
+}
