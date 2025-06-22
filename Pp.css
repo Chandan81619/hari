@@ -90,3 +90,50 @@ footer {
   }
 }
 
+/* Skills Section Specifics */
+#skills h2 {
+    font-size: 1.875rem; /* text-3xl */
+    text-align: center; /* text-center */
+    margin-bottom: 1.5rem; /* mb-6 */
+    background:linear-gradient(to right,red,yellow);
+}
+
+#skills > div { /* Grid container for skill cards */
+    display: grid; /* grid */
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* grid-cols-2 */
+    gap: 1.5rem; /* gap-6 */
+    
+    
+}
+
+#skills > div > div { /* Individual skill card */
+    display: flex; /* flex */
+    flex-direction: column; /* flex-col */
+    align-items: center; /* items-center */
+    padding: 1rem; /* p-4 */
+    background-color: #EFF6FF; /* bg-blue-50 */
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+    transition: all 0.3s ease-in-out; /* transition duration-300 */
+      background:linear-gradient(to right,rgb(21, 155, 218),rgb(235, 239, 241));
+    
+    }
+
+#skills > div > div:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* hover:shadow-xl */
+    transform: translateY(-0.25rem); /* transform hover:-translate-y-1 */
+ background:linear-gradient(to right,red,yellow);
+}
+
+#skills > div > div img {
+    width: 4rem; /* w-16 */
+    height: 4rem; /* h-16 */
+    margin-bottom: 0.75rem; /* mb-3 */
+    
+}
+
+#skills > div > div p {
+    font-size: 1.25rem; /* text-xl */
+    font-weight: 600; /* font-semibold */
+    color: #1E40AF; /* text-blue-800 */
+}
