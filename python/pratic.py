@@ -1,0 +1,7 @@
+a = float(input("enter a number"))
+b = float(input("enter 2nd no"))
+print("sum=",a+b)
+print("product=",a*b)
+print("difference=",a-b)
+print("division",a/b)
+print("Module",a%b)
