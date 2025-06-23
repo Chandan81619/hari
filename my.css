@@ -1,0 +1,506 @@
+import React, { useState, useEffect } from 'react';
+
+// Main App Component
+const App = () => {
+    const [activeSection, setActiveSection] = useState('home'); // State to manage active section/page
+    const [showContactModal, setShowContactModal] = useState(false); // State for contact form submission modal
+    const [formData, setFormData] = useState({ name: '', email: '', message: '' }); // State for contact form data
+
+    // Company Information (Hardcoded for this example)
+    const companyInfo = {
+        name: "Nepali Brick & Block Factory",
+        tagline: "Building Foundations, Shaping Futures",
+        phone1: "9744360654",
+        phone2: "9844390063",
+        email: "chandan81619@gmail.com",
+        address: "Nepal, Sarlahi, Kabalashi-3, Madanpur"
+    };
+
+    // Placeholder data for Products (USER NEEDS TO UPDATE THIS)
+    const products = [
+        {
+            id: 'brick1',
+            name: 'Standard Red Brick',
+            image: 'https://placehold.co/400x300/a30000/ffffff?text=Red+Brick', // Placeholder image
+            dimensions: '230mm x 110mm x 75mm',
+            colors: 'Classic Red',
+            strength: 'M25',
+            material: 'High-quality Clay',
+            applications: 'Load-bearing walls, general construction',
+            description: 'Our classic red bricks are known for their durability and timeless aesthetic, perfect for a wide range of construction projects.'
+        },
+        {
+            id: 'brick2',
+            name: 'Facing Brick - Modern Grey',
+            image: 'https://placehold.co/400x300/6b7280/ffffff?text=Grey+Brick', // Placeholder image
+            dimensions: '215mm x 102.5mm x 65mm',
+            colors: 'Charcoal Grey, Light Grey',
+            strength: 'M30',
+            material: 'Concrete Mix',
+            applications: 'Decorative facades, modern architectural designs',
+            description: 'Achieve a contemporary look with our modern grey facing bricks, offering a sleek finish and superior weather resistance.'
+        },
+        {
+            id: 'brick3',
+            name: 'Paver Brick - Terra',
+            image: 'https://placehold.co/400x300/c2410c/ffffff?text=Paver+Brick', // Placeholder image
+            dimensions: '200mm x 100mm x 60mm',
+            colors: 'Terracotta, Earth Brown',
+            strength: 'M40',
+            material: 'Dense Clay',
+            applications: 'Pathways, driveways, outdoor landscaping',
+            description: 'Designed for high traffic areas, our paver bricks combine robust strength with attractive earthy tones, ideal for durable outdoor surfaces.'
+        },
+        {
+            id: 'brick4',
+            name: 'Hollow Block',
+            image: 'https://placehold.co/400x300/4b5563/ffffff?text=Hollow+Block', // Placeholder image
+            dimensions: '390mm x 190mm x 190mm',
+            colors: 'Natural Grey',
+            strength: 'M15',
+            material: 'Cement Aggregate Mix',
+            applications: 'Non-load bearing walls, partition walls, insulation',
+            description: 'Lightweight and easy to install, our hollow blocks provide excellent thermal and acoustic insulation for various building needs.'
+        }
+    ];
+
+    // Placeholder data for Projects (USER NEEDS TO UPDATE THIS)
+    const projects = [
+        {
+            id: 'proj1',
+            name: 'Residential Villa, Kathmandu',
+            image: 'https://placehold.co/800x600/10b981/ffffff?text=Project+1', // Placeholder image
+            description: 'Our Standard Red Bricks were used to construct this beautiful and durable residential villa, showcasing classic elegance.'
+        },
+        {
+            id: 'proj2',
+            name: 'Commercial Complex, Pokhara',
+            image: 'https://placehold.co/800x600/3b82f6/ffffff?text=Project+2', // Placeholder image
+            description: 'The modern facade of this commercial complex was achieved using our sleek Modern Grey Facing Bricks.'
+        },
+        {
+            id: 'proj3',
+            name: 'Public Park Pathway, Birgunj',
+            image: 'https://placehold.co/800x600/f59e0b/ffffff?text=Project+3', // Placeholder image
+            description: 'Our durable Terra Paver Bricks were chosen for the extensive pathways in this popular public park, designed for longevity.'
+        }
+    ];
+
+    // Handle form input changes
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    // Handle form submission (for demonstration, just shows a modal)
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('Contact form submitted:', formData);
+        // In a real application, you would send this data to a backend server.
+        setShowContactModal(true);
+        setFormData({ name: '', email: '', message: '' }); // Clear form
+    };
+
+    // Responsive navigation bar
+    const Navbar = () => (
+        <nav className="bg-gray-800 p-4 shadow-lg sticky top-0 z-50 rounded-b-lg">
+            <div className="container mx-auto flex flex-wrap justify-between items-center">
+                <a href="#" className="text-white text-2xl font-bold rounded-lg px-3 py-1 bg-gradient-to-r from-red-600 to-red-800 shadow-md">
+                    {companyInfo.name}
+                </a>
+                <div className="flex md:hidden">
+                    <button onClick={() => document.getElementById('mobile-menu').classList.toggle('hidden')} className="text-white focus:outline-none">
+                        <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                </div>
+                <div id="mobile-menu" className="hidden md:flex flex-col md:flex-row md:space-x-8 mt-4 md:mt-0 w-full md:w-auto">
+                    <NavItem title="Home" sectionId="home" currentSection={activeSection} setActiveSection={setActiveSection} />
+                    <NavItem title="About Us" sectionId="about" currentSection={activeSection} setActiveSection={setActiveSection} />
+                    <NavItem title="Our Products" sectionId="products" currentSection={activeSection} setActiveSection={setActiveSection} />
+                    <NavItem title="Projects" sectionId="projects" currentSection={activeSection} setActiveSection={setActiveSection} />
+                    <NavItem title="Contact Us" sectionId="contact" currentSection={activeSection} setActiveSection={setActiveSection} />
+                </div>
+            </div>
+        </nav>
+    );
+
+    // Navigation Item Component
+    const NavItem = ({ title, sectionId, currentSection, setActiveSection }) => (
+        <button
+            onClick={() => setActiveSection(sectionId)}
+            className={`block md:inline-block text-white hover:text-red-300 px-3 py-2 rounded-md text-lg font-medium transition duration-300 ease-in-out
+                ${currentSection === sectionId ? 'bg-red-700' : ''}`}
+        >
+            {title}
+        </button>
+    );
+
+    // Section Components
+    const Home = () => (
+        <section id="home" className="py-20 bg-gradient-to-br from-gray-100 to-white text-center rounded-xl shadow-xl mx-4 my-8 p-6">
+            <h1 className="text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
+                Welcome to <span className="text-red-700">{companyInfo.name}</span>
+            </h1>
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-8">
+                {companyInfo.tagline}. We are dedicated to producing high-quality bricks and construction materials that form the bedrock of your projects.
+            </p>
+            <button
+                onClick={() => setActiveSection('products')}
+                className="bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out"
+            >
+                Explore Our Bricks
+            </button>
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <FeatureCard
+                    icon="🏠"
+                    title="Quality Materials"
+                    description="Using only the finest raw materials ensures the strength and longevity of our products."
+                />
+                <FeatureCard
+                    icon="⚙️"
+                    title="Advanced Technology"
+                    description="Leveraging modern manufacturing processes for consistent quality and efficiency."
+                />
+                <FeatureCard
+                    icon="🤝"
+                    title="Customer Focus"
+                    description="Committed to providing excellent service and tailor-made solutions for every client."
+                />
+            </div>
+        </section>
+    );
+
+    const FeatureCard = ({ icon, title, description }) => (
+        <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-2 transition duration-300 ease-in-out">
+            <div className="text-5xl mb-4">{icon}</div>
+            <h3 className="text-2xl font-semibold text-gray-800 mb-3">{title}</h3>
+            <p className="text-gray-600">{description}</p>
+        </div>
+    );
+
+    const AboutUs = () => (
+        <section id="about" className="py-16 bg-white mx-4 my-8 p-6 rounded-xl shadow-xl">
+            <div className="container mx-auto px-4">
+                <h2 className="text-4xl font-bold text-gray-900 mb-8 text-center">About Our Factory</h2>
+                <div className="flex flex-col md:flex-row items-center gap-10">
+                    <div className="md:w-1/2">
+                        <img
+                            src="https://placehold.co/600x400/ccc/333?text=Brick+Factory"
+                            alt="Brick Factory Overview"
+                            className="rounded-lg shadow-lg w-full h-auto object-cover"
+                            onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/ccc/333?text=Image+Not+Found'; }}
+                        />
+                    </div>
+                    <div className="md:w-1/2 text-gray-700 leading-relaxed">
+                        <p className="mb-4 text-lg">
+                            Located in the heart of Madanpur, Sarlahi, Nepal, {companyInfo.name} has been a cornerstone of the construction industry, proudly supplying high-quality bricks and building materials for [X years - *add your years of operation*]. Our commitment to excellence, innovation, and sustainable practices sets us apart.
+                        </p>
+                        <p className="mb-4 text-lg">
+                            We pride ourselves on our state-of-the-art manufacturing facility and a dedicated team of skilled professionals who work tirelessly to ensure every brick meets the highest standards of durability and finish. From raw material sourcing to the final product, every step undergoes rigorous quality control.
+                        </p>
+                        <p className="text-lg">
+                            We believe in building strong relationships with our clients by providing reliable products and exceptional service, contributing to the development of strong, beautiful, and lasting structures across the region.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div className="mt-12 text-center">
+                <h3 className="text-3xl font-bold text-gray-900 mb-6">Our Core Values</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <ValueCard title="Quality First" description="Uncompromising commitment to superior product standards." />
+                    <ValueCard title="Sustainability" description="Adopting eco-friendly practices in our production process." />
+                    <ValueCard title="Integrity" description="Operating with honesty, transparency, and ethical conduct." />
+                </div>
+            </div>
+        </section>
+    );
+
+    const ValueCard = ({ title, description }) => (
+        <div className="bg-red-50 p-6 rounded-lg shadow-md border border-red-200">
+            <h4 className="text-xl font-semibold text-red-800 mb-2">{title}</h4>
+            <p className="text-gray-700">{description}</p>
+        </div>
+    );
+
+    const Products = () => (
+        <section id="products" className="py-16 bg-gradient-to-b from-red-50 to-white mx-4 my-8 p-6 rounded-xl shadow-xl">
+            <div className="container mx-auto px-4">
+                <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">Our Products</h2>
+                <p className="text-center text-lg text-gray-700 mb-10 max-w-3xl mx-auto">
+                    We offer a diverse range of high-quality bricks and blocks to meet the varied demands of modern construction. Each product is crafted with precision and engineered for lasting performance.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {products.map(product => (
+                        <ProductCard key={product.id} product={product} />
+                    ))}
+                </div>
+                <div className="mt-12 text-center">
+                    <p className="text-xl text-gray-700 font-semibold">
+                        <span className="text-red-700">Note:</span> The brick details above are placeholders. Please provide your actual brick types, dimensions, colors, strengths, materials, applications, descriptions, and high-quality images to replace this content for an accurate representation of your products.
+                    </p>
+                </div>
+            </div>
+        </section>
+    );
+
+    const ProductCard = ({ product }) => (
+        <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition duration-300 ease-in-out flex flex-col h-full">
+            <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-48 object-cover rounded-t-lg"
+                onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/400x300/e2e8f0/333?text=Image+Unavailable'; }}
+            />
+            <div className="p-6 flex flex-col justify-between flex-grow">
+                <div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">{product.name}</h3>
+                    <p className="text-gray-700 mb-2">{product.description}</p>
+                    <ul className="text-gray-600 text-sm list-disc pl-5 mt-4">
+                        <li><strong>Dimensions:</strong> {product.dimensions}</li>
+                        <li><strong>Colors:</strong> {product.colors}</li>
+                        <li><strong>Strength:</strong> {product.strength}</li>
+                        <li><strong>Material:</strong> {product.material}</li>
+                        <li><strong>Applications:</strong> {product.applications}</li>
+                    </ul>
+                </div>
+                <button
+                    onClick={() => setActiveSection('contact')}
+                    className="mt-6 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out self-start"
+                >
+                    Inquire About {product.name}
+                </button>
+            </div>
+        </div>
+    );
+
+    const Projects = () => (
+        <section id="projects" className="py-16 bg-gray-50 mx-4 my-8 p-6 rounded-xl shadow-xl">
+            <div className="container mx-auto px-4">
+                <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">Our Projects</h2>
+                <p className="text-center text-lg text-gray-700 mb-10 max-w-3xl mx-auto">
+                    See our high-quality bricks in action! We are proud to have contributed to numerous successful construction projects, from residential homes to commercial complexes.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {projects.map(project => (
+                        <ProjectCard key={project.id} project={project} />
+                    ))}
+                </div>
+                <div className="mt-12 text-center">
+                    <p className="text-xl text-gray-700 font-semibold">
+                        <span className="text-red-700">Note:</span> The projects above are examples. Please provide actual photos and descriptions of real projects where your bricks have been used to replace this content.
+                    </p>
+                </div>
+            </div>
+        </section>
+    );
+
+    const ProjectCard = ({ project }) => (
+        <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition duration-300 ease-in-out">
+            <img
+                src={project.image}
+                alt={project.name}
+                className="w-full h-60 object-cover rounded-t-lg"
+                onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/800x600/e2e8f0/333?text=Project+Image+Unavailable'; }}
+            />
+            <div className="p-6">
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">{project.name}</h3>
+                <p className="text-gray-700">{project.description}</p>
+            </div>
+        </div>
+    );
+
+    const ContactUs = () => (
+        <section id="contact" className="py-16 bg-white mx-4 my-8 p-6 rounded-xl shadow-xl">
+            <div className="container mx-auto px-4">
+                <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">Contact Us</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    {/* Contact Information */}
+                    <div className="bg-red-50 p-8 rounded-lg shadow-md border border-red-200">
+                        <h3 className="text-2xl font-semibold text-red-800 mb-6">Get in Touch</h3>
+                        <div className="space-y-4 text-gray-700 text-lg">
+                            <p className="flex items-center">
+                                <svg className="w-6 h-6 mr-3 text-red-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7 2a2 2 0 00-2 2v12a2 2 0 002 2h6a2 2 0 002-2V4a2 2 0 00-2-2H7zm3 15a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"></path></svg>
+                                <strong>Phone:</strong> {companyInfo.phone1}, {companyInfo.phone2}
+                            </p>
+                            <p className="flex items-center">
+                                <svg className="w-6 h-6 mr-3 text-red-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                                <strong>Email:</strong> <a href={`mailto:${companyInfo.email}`} className="text-red-600 hover:underline">{companyInfo.email}</a>
+                            </p>
+                            <p className="flex items-start">
+                                <svg className="w-6 h-6 mr-3 text-red-600 mt-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"></path></svg>
+                                <strong>Address:</strong> {companyInfo.address}
+                            </p>
+                        </div>
+                        {/* Map placeholder */}
+                        <div className="mt-8 bg-gray-200 h-64 rounded-lg flex items-center justify-center text-gray-600 text-center shadow-inner">
+                            <p>Map showing factory location will go here</p>
+                            {/* In a real app, you'd embed a Google Map iframe here */}
+                            {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1dXYZ!2dXYZ!3dXYZ!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDQ5JzQ0LjMiTiA3NcKwMTUnMjAuNCJF!5e0!3m2!1sen!2snp!4v1678901234567!5m2!1sen!2snp" width="100%" height="250" style="border:0;" allowFullScreen="" loading="lazy"></iframe> */}
+                        </div>
+                    </div>
+
+                    {/* Contact Form */}
+                    <div className="bg-white p-8 rounded-lg shadow-md border border-gray-200">
+                        <h3 className="text-2xl font-semibold text-gray-900 mb-6">Send Us a Message</h3>
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            <div>
+                                <label htmlFor="name" className="block text-gray-800 text-sm font-bold mb-2">Name:</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    className="shadow appearance-none border rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition duration-200"
+                                    placeholder="Your Name"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="email" className="block text-gray-800 text-sm font-bold mb-2">Email:</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    className="shadow appearance-none border rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition duration-200"
+                                    placeholder="your_email@example.com"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="message" className="block text-gray-800 text-sm font-bold mb-2">Message:</label>
+                                <textarea
+                                    id="message"
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    rows="6"
+                                    className="shadow appearance-none border rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition duration-200"
+                                    placeholder="Tell us about your project or inquiry..."
+                                    required
+                                ></textarea>
+                            </div>
+                            <button
+                                type="submit"
+                                className="bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-6 rounded-md shadow-lg transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75"
+                            >
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+
+    // Footer Component
+    const Footer = () => (
+        <footer className="bg-gray-800 text-white p-8 mt-12 rounded-t-lg shadow-inner">
+            <div className="container mx-auto text-center">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                    <div>
+                        <h4 className="text-xl font-semibold mb-4 text-red-300">Quick Links</h4>
+                        <ul className="space-y-2">
+                            <li><button onClick={() => setActiveSection('home')} className="hover:text-red-300 transition duration-200">Home</button></li>
+                            <li><button onClick={() => setActiveSection('about')} className="hover:text-red-300 transition duration-200">About Us</button></li>
+                            <li><button onClick={() => setActiveSection('products')} className="hover:text-red-300 transition duration-200">Our Products</button></li>
+                            <li><button onClick={() => setActiveSection('contact')} className="hover:text-red-300 transition duration-200">Contact Us</button></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 className="text-xl font-semibold mb-4 text-red-300">Contact Information</h4>
+                        <p className="mb-2">
+                            {companyInfo.address}
+                        </p>
+                        <p className="mb-2">
+                            Phone: {companyInfo.phone1}, {companyInfo.phone2}
+                        </p>
+                        <p>Email: <a href={`mailto:${companyInfo.email}`} className="text-red-400 hover:underline">{companyInfo.email}</a></p>
+                    </div>
+                    <div>
+                        <h4 className="text-xl font-semibold mb-4 text-red-300">Follow Us</h4>
+                        <div className="flex justify-center space-x-4">
+                            {/* Replace with actual social media links */}
+                            <a href="#" className="text-white hover:text-red-400 text-2xl"><i className="fab fa-facebook-f"></i></a>
+                            <a href="#" className="text-white hover:text-red-400 text-2xl"><i className="fab fa-twitter"></i></a>
+                            <a href="#" className="text-white hover:text-red-400 text-2xl"><i className="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <hr className="border-gray-700 my-8" />
+                <p className="text-gray-500 text-sm">&copy; {new Date().getFullYear()} {companyInfo.name}. All rights reserved.</p>
+            </div>
+        </footer>
+    );
+
+    // Contact Submission Modal
+    const ContactModal = ({ show, onClose }) => {
+        if (!show) return null;
+
+        return (
+            <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-[100]">
+                <div className="bg-white p-8 rounded-lg shadow-2xl max-w-sm w-full text-center">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Message Sent!</h3>
+                    <p className="text-gray-700 mb-6">Thank you for your inquiry. We will get back to you shortly.</p>
+                    <button
+                        onClick={onClose}
+                        className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-6 rounded-md shadow-md transition duration-300 ease-in-out"
+                    >
+                        Close
+                    </button>
+                </div>
+            </div>
+        );
+    };
+
+    // Main App Render
+    return (
+        <div className="min-h-screen bg-gray-50 font-sans text-gray-900">
+            {/* Tailwind CSS is applied using utility classes directly in the JSX.
+                The CDN script below loads Tailwind, making its classes available.
+                Font Awesome is used for icons.
+                The Inter font is loaded for a modern look.
+            */}
+            <script src="https://cdn.tailwindcss.com"></script>
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+            <style>
+                {`
+                body {
+                    font-family: 'Inter', sans-serif;
+                }
+                html {
+                    scroll-behavior: smooth;
+                }
+                .container {
+                    max-width: 1200px; /* Optional: Constrain max width for content */
+                }
+                /* Basic responsive adjustments if needed, though Tailwind handles most */
+                @media (max-width: 768px) {
+                    #mobile-menu:not(.hidden) {
+                        display: flex;
+                    }
+                }
+                `}
+            </style>
+
+            <Navbar />
+
+            <main className="container mx-auto px-4 mt-8">
+                {activeSection === 'home' && <Home />}
+                {activeSection === 'about' && <AboutUs />}
+                {activeSection === 'products' && <Products />}
+                {activeSection === 'projects' && <Projects />}
+                {activeSection === 'contact' && <ContactUs />}
+            </main>
+
+            <Footer />
+            <ContactModal show={showContactModal} onClose={() => setShowContactModal(false)} />
+        </div>
+    );
+};
+
+export default App;
